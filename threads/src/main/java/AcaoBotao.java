@@ -17,12 +17,17 @@ public class AcaoBotao implements ActionListener {
 		this.resultado = resultado;
 	}
 
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Multiplicacao tarefaMultiplicacao = new Multiplicacao(primeiro, segundo, resultado);
+		Runnable tarefaMultiplicacao = new Multiplicacao(primeiro, segundo, resultado);
 		Thread threadCalculadora = new Thread(tarefaMultiplicacao, "Thread Calculadora");
 		threadCalculadora.start();
+
+
+		Thread thread2 = new Thread(() -> System.out.println("Teste"));
+		thread2.start();
+
 
 
 	}
