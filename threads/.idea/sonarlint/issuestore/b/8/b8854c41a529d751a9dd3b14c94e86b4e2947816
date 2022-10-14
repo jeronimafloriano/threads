@@ -1,0 +1,13 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(·¼æÏùÿÿÿÿ
+=
+java:S1604"(Make this anonymous inner class a lambda(ô§ê
+Q	java:S125
+"<This block of commented-out lines of code should be removed.(Ìùµ×
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¶Š“³
+C	java:S108")Either remove or fill this block of code.(÷Ã¹§øÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(âØ÷»ûÿÿÿÿ
+=	java:S108")Either remove or fill this block of code.(ìÃ¤D
+N	java:S106!"9Replace this use of System.out or System.err by a logger.(»õ´¤
+N	java:S106+"9Replace this use of System.out or System.err by a logger.(Ï’¼Ü
+N	java:S106/"9Replace this use of System.out or System.err by a logger.(˜ÂáÕ

@@ -1,6 +1,8 @@
 package experimento;
 
 
+import parte2.servidortarefas.TratadorDeExcecao;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ServidorDeTeste {
@@ -15,20 +17,25 @@ public class ServidorDeTeste {
     }
 
     private void rodar() {
-        new Thread(new Runnable() {
-
+        Thread thread = new Thread(new Runnable() {
             public void run() {
-                System.out.println("Servidor começando, estaRodando = " + estaRodando );
+                   System.out.println("Servidor começando, estaRodando = " + estaRodando );
 
-                while(!estaRodando.get()) {}
+                   while(!estaRodando.get()) {}
+                   if(estaRodando.get()){
+                       throw new RuntimeException("Erro na thread!");
+                   }
 
-                System.out.println("Servidor rodando, estaRodando = " + estaRodando );
+                   System.out.println("Servidor rodando, estaRodando = " + estaRodando );
 
-                while(estaRodando.get()) {}
+                   while(estaRodando.get()) {}
 
-                System.out.println("Servidor terminando, estaRodando = " + estaRodando );
+                   System.out.println("Servidor terminando, estaRodando = " + estaRodando );
             }
-        }).start();
+        });
+
+        thread.setUncaughtExceptionHandler(new TratadorDeExcecao());
+        thread.start();
     }
 
     private void alterandoAtributo() throws InterruptedException {

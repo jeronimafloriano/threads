@@ -1,0 +1,10 @@
+
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ñ‚çä¼0
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö¢˜
+i
+java:S1450"SRemove the "soma" field and declare it as a local variable in the relevant methods.(ÑªÔ˜
+S	java:S106"9Replace this use of System.out or System.err by a logger.(°¸…Şùÿÿÿÿ
+{
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8ƒçä¼0
+e
+java:S2276"CReplace the call to "Thread.sleep(...)" with a call to "wait(...)".(€­íÜüÿÿÿÿ8ÿíñä¼0

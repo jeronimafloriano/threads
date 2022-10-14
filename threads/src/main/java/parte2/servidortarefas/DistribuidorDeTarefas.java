@@ -1,18 +1,24 @@
 package parte2.servidortarefas;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class DistribuidorDeTarefas implements Runnable{
 
     private Socket socket;
     private ServidorTarefas servidor;
+    private ExecutorService threadPool;
 
-    public DistribuidorDeTarefas(Socket socket, ServidorTarefas servidor){
+    public DistribuidorDeTarefas(ExecutorService threadPool, Socket socket, ServidorTarefas servidor){
         this.socket = socket;
         this.servidor = servidor;
+        this.threadPool = threadPool;
     }
 
     @Override
@@ -30,10 +36,20 @@ public class DistribuidorDeTarefas implements Runnable{
                 switch (comando) {
                     case "c1": {
                         saidaCliente.println("Confirmação do comando c1");
+                        ComandoC1 c1 = new ComandoC1(saidaCliente);
+                        this.threadPool.execute(c1);
                         break;
                     }
                     case "c2": {
                         saidaCliente.println("Confirmação do comando c2");
+                        ComandoC2 c2 = new ComandoC2(saidaCliente);
+                        ComandoC c = new ComandoC(saidaCliente);
+                        Future<String> futureC2 = this.threadPool.submit(c2);
+                        Future<String> futureC = this.threadPool.submit(c);
+
+                        this.threadPool.submit(new AgrupaResultadosComandosC2EC(futureC2, futureC, saidaCliente));
+
+                        //this.threadPool.execute(c2);
                         break;
                     }
                     case "fim": {
