@@ -5,20 +5,24 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class DistribuidorDeTarefas implements Runnable{
 
+    private ExecutorService threadPool;
+    private BlockingQueue<String> filaComandos;
     private Socket socket;
     private ServidorTarefas servidor;
-    private ExecutorService threadPool;
 
-    public DistribuidorDeTarefas(ExecutorService threadPool, Socket socket, ServidorTarefas servidor){
+    public DistribuidorDeTarefas(ExecutorService threadPool, BlockingQueue filaComandos,
+                                 Socket socket, ServidorTarefas servidor ){
+        this.threadPool = threadPool;
+        this.filaComandos = filaComandos;
         this.socket = socket;
         this.servidor = servidor;
-        this.threadPool = threadPool;
     }
 
     @Override
@@ -50,6 +54,11 @@ public class DistribuidorDeTarefas implements Runnable{
                         this.threadPool.submit(new AgrupaResultadosComandosC2EC(futureC2, futureC, saidaCliente));
 
                         //this.threadPool.execute(c2);
+                        break;
+                    }
+                    case "c3": {
+                        this.filaComandos.put(comando);
+                        saidaCliente.println("Comando c3 adicionado à fila.");
                         break;
                     }
                     case "fim": {
